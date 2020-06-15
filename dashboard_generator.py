@@ -5,6 +5,8 @@ import csv
 import itertools
 import datetime
 from operator import itemgetter
+import plotly
+import plotly.graph_objs as go
 
 def to_usd(my_price):
   # return "${0:,.2f}".format(my_price)
@@ -67,8 +69,18 @@ print("-----------------------")
 print("TOP SELLING PRODUCTS:")
 
 counter = 0
+labels = []
+values = []
 for top_seller in top_sellers:
     counter = counter + 1
     product_name = top_seller["name"]
     sales_usd = to_usd(top_seller["monthly_sales"])
-    print(f"  {counter}. {product_name} ({sales_usd})")
+    print(f"  {counter}. {product_name} ({sales_usd})")  
+    labels.append(product_name)
+    values.append(top_seller["monthly_sales"])
+
+# Data visualization
+# Pie chart
+
+trace = go.Pie(labels=labels, values=values)
+plotly.offline.plot([trace], filename="basic_pie_chart.html", auto_open=True)
