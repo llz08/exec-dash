@@ -3,6 +3,7 @@
 import os
 import csv
 import itertools
+import datetime
 from operator import itemgetter
 
 def to_usd(my_price):
@@ -33,19 +34,20 @@ total_sales = sum(sales_prices)
 
 product_sales = []
 
+date = rows[0]["date"]
+print_date = datetime.datetime.strptime(date,"%Y-%m-%d").strftime("%B %Y")
+
+
 sorted_rows = sorted(rows, key=itemgetter("product"))
 rows_by_product = itertools.groupby(sorted_rows, key=itemgetter("product")) 
 
 for product, product_rows in rows_by_product:
     monthly_sales = sum([float(row["sales price"]) for row in product_rows]) 
+ 
     product_sales.append({"name": product, "monthly_sales": monthly_sales})
 
 sorted_product_sales = sorted(product_sales, key=itemgetter("monthly_sales"), reverse=True)
-top_sellers = sorted_product_sales[0:3]
-
-month = "MARCH" # TODO: get from file name or date values
-year = 2018 # TODO: get from file name or date values
-
+top_sellers = sorted_product_sales[0:7]
 
 # INFO OUTPUTS
 
@@ -53,7 +55,7 @@ year = 2018 # TODO: get from file name or date values
 print("-------------------------")
 print(f"SALES REPORT")
 print("-----------------------")
-print(f"MONTH: {month} {year}")
+print(f"MONTH: {print_date}")
 
 print("-----------------------")
 print("CRUNCHING THE DATA...")
