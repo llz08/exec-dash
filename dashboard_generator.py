@@ -71,16 +71,26 @@ print("TOP SELLING PRODUCTS:")
 counter = 0
 labels = []
 values = []
+sales_usd_list = []
 for top_seller in top_sellers:
     counter = counter + 1
     product_name = top_seller["name"]
     sales_usd = to_usd(top_seller["monthly_sales"])
+    sales_usd_list.append(sales_usd)
     print(f"  {counter}. {product_name} ({sales_usd})")  
     labels.append(product_name)
     values.append(top_seller["monthly_sales"])
 
 # Data visualization
-# Pie chart
+# Bar graph
 
-trace = go.Pie(labels=labels, values=values)
-plotly.offline.plot([trace], filename="basic_pie_chart.html", auto_open=True)
+trace = go.Bar(x=labels, y=values, text=sales_usd_list, textposition='auto')
+data = [trace]
+layout = go.Layout(
+    title=f'Top Selling Product {print_date}',
+    xaxis_title="Sales (USD)",
+    yaxis_title="Product",
+    yaxis_tickprefix="$",
+    yaxis_tickformat = ',.2f'
+)
+plotly.offline.plot(dict(data=data, layout=layout), filename="pie_chart.html", auto_open=True)
