@@ -16,11 +16,15 @@ def to_usd(my_price):
 # INFO INPUTS
 #
 
-CSV_FILENAME = "sales-201803.csv"
+CSV_FILENAME = "sales-2018031.csv"
 
 csv_filepath = os.path.join("data/monthly-sales", CSV_FILENAME)
 print(csv_filepath)
 rows = []
+
+# Validation requirements
+os.path.exists
+
 
 with open(csv_filepath, "r") as csv_file:
     reader = csv.DictReader(csv_file)
