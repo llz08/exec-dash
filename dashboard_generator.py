@@ -16,14 +16,17 @@ def to_usd(my_price):
 # INFO INPUTS
 #
 
-CSV_FILENAME = "sales-2018031.csv"
+CSV_FILENAME = input("Please input csv file name format (sales-YYYYMM.csv): ") 
 
 csv_filepath = os.path.join("data/monthly-sales", CSV_FILENAME)
 print(csv_filepath)
 rows = []
 
 # Validation requirements
-os.path.exists
+if not os.path.exists(csv_filepath):
+    print("Error Didn't find a file at that location")
+    quit()
+
 
 
 with open(csv_filepath, "r") as csv_file:
